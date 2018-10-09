@@ -1,11 +1,12 @@
-FROM java:openjdk-8-jre
+FROM java:openjdk-8-jdk
 
 MAINTAINER devel@wizzie.io
 
 RUN apt-get update
 RUN apt-get install -y gettext-base
-
 RUN mkdir -p /var/log/normalizer
+RUN export MALLOC_ARENA_MAX=2
+
 
 ADD normalizer-dist.tar.gz /opt/
 RUN rm -f /opt/normalizer/config/*
@@ -26,6 +27,9 @@ ENV LOG_LEVEL info
 ENV GENERAL_LOG_LEVEL info
 
 ENV JVM_OPTIONS -Xmx512m -Xms512m
+
+ENV MALLOC_ARENA_MAX 1
+ENV M_MMAP_THRESHOLD 64
 
 CMD exec /bin/normalizer-start.sh
 

@@ -11,5 +11,13 @@
   "multi.id": ${MULTI_ID},
   "max.output.kafka.topics": ${MAX_OUTPUT_KAFKA_TOPICS},
   "bootstrap.kafka.topics": ${BOOTSTRAP_KAFKA_TOPICS},
-  "timestamp.extractor":"org.apache.kafka.streams.processor.WallclockTimestampExtractor"
+  "timestamp.extractor":"org.apache.kafka.streams.processor.WallclockTimestampExtractor",
+  "producer.buffer.memory": 102400,
+  "consumer.fetch.max.bytes": 102400,
+  "consumer.fetch.max.wait.ms":500,
+  "consumer.send.buffer.bytes": 102400,
+  "consumer.receive.buffer.bytes": 102400,
+  "producer.send.buffer.bytes": 102400,
+  "producer.receive.buffer.bytes": 102400,
+  "buffered.records.per.partition": 1000
 }

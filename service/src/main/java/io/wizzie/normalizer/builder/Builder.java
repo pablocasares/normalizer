@@ -1,6 +1,6 @@
 package io.wizzie.normalizer.builder;
 
-import com.codahale.metrics.JmxAttributeGauge;
+import com.codahale.metrics.jvm.JmxAttributeGauge;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.wizzie.bootstrapper.builder.*;
 import io.wizzie.normalizer.base.utils.Utils;
@@ -150,6 +150,23 @@ public class Builder implements Listener {
                                 + String.format("%s_%s", appId, "normalizer") + "-StreamThread-"
                                 + i), "commit-latency-avg"));
 
+                log.info(" * {}", "streams.stream-" + i + ".poll-rate");
+                metricsManager.registerMetric("streams.stream-" + i + ".poll-rate",
+                        new JmxAttributeGauge(new ObjectName("kafka.streams:type=stream-metrics,client-id="
+                                + String.format("%s_%s", appId, "normalizer") + "-StreamThread-"
+                                + i), "poll-rate"));
+
+                log.info(" * {}", "streams.stream-" + i + ".commit-rate");
+                metricsManager.registerMetric("streams.stream-" + i + ".commit-rate",
+                        new JmxAttributeGauge(new ObjectName("kafka.streams:type=stream-metrics,client-id="
+                                + String.format("%s_%s", appId, "normalizer") + "-StreamThread-"
+                                + i), "commit-rate"));
+
+                log.info(" * {}", "streams.stream-" + i + ".process-rate");
+                metricsManager.registerMetric("streams.stream-" + i + ".process-rate",
+                        new JmxAttributeGauge(new ObjectName("kafka.streams:type=stream-metrics,client-id="
+                                + String.format("%s_%s", appId, "normalizer") + "-StreamThread-"
+                                + i), "process-rate"));
             } catch (MalformedObjectNameException e) {
                 log.error("kafka jvm metrics not found", e);
             }
