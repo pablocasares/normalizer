@@ -1,6 +1,6 @@
 package io.wizzie.normalizer.builder;
 
-import com.codahale.metrics.JmxAttributeGauge;
+import com.codahale.metrics.jvm.JmxAttributeGauge;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.wizzie.bootstrapper.builder.*;
 import io.wizzie.normalizer.base.utils.Utils;
