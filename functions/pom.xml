@@ -24,6 +24,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
             <groupId>io.wizzie.normalizer</groupId>
             <artifactId>base</artifactId>
             <version>${project.parent.version}</version>
