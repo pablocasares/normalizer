@@ -8,9 +8,6 @@ import io.wizzie.bootstrapper.builder.Config;
 import io.wizzie.normalizer.base.builder.config.ConfigProperties;
 import io.wizzie.normalizer.exceptions.MaxOutputKafkaTopics;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.base.builder.config.ConfigProperties;
-import io.wizzie.normalizer.exceptions.MaxOutputKafkaTopics;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +18,7 @@ import java.util.stream.Collectors;
 public class PlanModel {
     private Map<String, List<String>> inputs;
     private Map<String, StreamModel> streams;
+    private Map<String, FunctionModel> sinkFilters;
     private List<String> definedStreams = new ArrayList<>();
 
     @JsonCreator
@@ -144,6 +142,7 @@ public class PlanModel {
         validateInputs();
         validateStreams();
         validateKafkaOutputs(config);
+        validateFilterSinks();
     }
 
     private void validateInputs() throws PlanBuilderException {
@@ -198,8 +197,20 @@ public class PlanModel {
 
             if (kafkaOutputs > maxKafkaOutputs) {
                 throw new MaxOutputKafkaTopics(String.format(
-                        "You try to create [%s] topics, and the limit is [%s]", kafkaOutputs, maxKafkaOutputs
+                        "You tried to create [%s] topics, and the limit is [%s]", kafkaOutputs, maxKafkaOutputs
                 ));
+            }
+        }
+    }
+
+    private void validateFilterSinks() throws PlanBuilderException {
+
+        for(Map.Entry<String, StreamModel> entry : streams.entrySet()){
+            for(SinkModel sinkModel : entry.getValue().getSinks()){
+                if (!(sinkModel.getFilter() == null ) &&
+                        (sinkModel.getFilter().getProperties().isEmpty() || sinkModel.getFilter().getProperties() == null)){
+                    throw new PlanBuilderException(String.format("Stream[%s]: sink filter can not be null or empty",entry.getKey()));
+                }
             }
         }
     }

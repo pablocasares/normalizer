@@ -1,0 +1,45 @@
+{
+  "inputs":{
+    "input1": ["filter-stream"]
+  },
+  "streams": {
+    "filter-stream": {
+      "sinks": [
+        {"topic": "splitter-stream", "type": "stream", "filter": {
+          "name": "myFilter",
+          "className": "io.wizzie.normalizer.funcs.impl.ContainsDimensionFilter",
+          "properties": {
+            "dimensions": ["A"]
+          }
+        }},
+        {"topic": "output2", "filter": {
+          "name": "myFilter",
+          "className": "io.wizzie.normalizer.funcs.impl.ContainsDimensionFilter",
+          "properties": {
+            "dimensions": ["A"],
+            "__MATCH": false
+          }}}
+      ]
+    },
+    "splitter-stream": {
+      "funcs": [
+        {
+          "name": "mySplitterFlatMapper",
+          "className": "io.wizzie.normalizer.funcs.impl.SplitterFlatMapper",
+          "properties": {
+            "dimensions": ["A"]
+          }
+        }
+      ],
+      "sinks": [
+        {"topic": "output1", "type": "kafka", "filter": {}},
+        {"topic": "output2", "type": "kafka", "filter": {
+                                                        "name": "myFilter",
+                                                        "className": "io.wizzie.normalizer.funcs.impl.ContainsDimensionFilter",
+                                                        "properties": {
+
+                                                        }}}
+      ]
+    }
+  }
+}

@@ -117,4 +117,42 @@ public class PlanModelUnitTest {
         config.put(ConfigProperties.MAX_KAFKA_OUTPUT_TOPICS, 1);
         model.validate(config);
     }
+
+    @Test(expected = PlanBuilderException.class)
+    public void throwExceptionFilterNotNull() throws PlanBuilderException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File(classLoader.getResource("filter-not-null.json").getFile());
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        PlanModel model = null;
+
+        try {
+            model = objectMapper.readValue(file, PlanModel.class);
+        } catch (IOException e) {
+            fail("Exception : " + e.getMessage());
+        }
+
+        Config config = new Config();
+        config.put(ConfigProperties.MAX_KAFKA_OUTPUT_TOPICS, 2);
+        model.validate(config);
+    }
+
+    @Test(expected = PlanBuilderException.class)
+    public void throwExceptionFilterNotEmpty() throws PlanBuilderException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File(classLoader.getResource("filter-not-null.json").getFile());
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        PlanModel model = null;
+
+        try {
+            model = objectMapper.readValue(file, PlanModel.class);
+        } catch (IOException e) {
+            fail("Exception : " + e.getMessage());
+        }
+
+        Config config = new Config();
+        config.put(ConfigProperties.MAX_KAFKA_OUTPUT_TOPICS, 2);
+        model.validate(config);
+    }
 }
