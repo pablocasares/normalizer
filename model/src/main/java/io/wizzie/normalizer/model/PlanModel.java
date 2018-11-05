@@ -207,7 +207,7 @@ public class PlanModel {
 
         for(Map.Entry<String, StreamModel> entry : streams.entrySet()){
             for(SinkModel sinkModel : entry.getValue().getSinks()){
-                if (!(sinkModel.getFilter() == null ) &&
+                if (sinkModel.getFilter() != null  &&
                         (sinkModel.getFilter().getProperties().isEmpty() || sinkModel.getFilter().getProperties() == null)){
                     throw new PlanBuilderException(String.format("Stream[%s]: sink filter can not be null or empty",entry.getKey()));
                 }
