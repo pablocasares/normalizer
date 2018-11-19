@@ -18,9 +18,9 @@ public class ConversionUtils {
                 } else if (l instanceof String) {
                     result = Long.valueOf((String) l);
                 } else if (l instanceof Double) {
-                    result = ((Double)l).longValue();
+                    result = ((Double) l).longValue();
                 } else if (l instanceof Float) {
-                    result = ((Float)l).longValue();
+                    result = ((Float) l).longValue();
                 }
             }
         } catch (NumberFormatException ex) {
