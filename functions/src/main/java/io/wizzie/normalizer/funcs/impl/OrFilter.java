@@ -38,7 +38,7 @@ public class OrFilter extends FilterFunc {
     @Override
     public Boolean process(String key, Map<String, Object> value) {
         if(value == null) return false;
-        return filters.parallelStream().map(filter -> filter.test(key, value) == filter.match()).reduce((x,y) -> x || y)
+        return filters.parallelStream().map(filter -> filter.test(key, value)).reduce((x,y) -> x || y)
                 .orElseGet(() -> Boolean.FALSE);
     }
 

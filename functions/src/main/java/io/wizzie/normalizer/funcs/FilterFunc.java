@@ -18,7 +18,8 @@ public abstract class FilterFunc implements Function<Boolean>, Predicate<String,
 
     /**
      * Initialize filter function
-     * @param properties Properties for filter function
+     *
+     * @param properties     Properties for filter function
      * @param metricsManager MetricsManager to register custom metrics.
      */
     @Override
@@ -30,21 +31,14 @@ public abstract class FilterFunc implements Function<Boolean>, Predicate<String,
 
     /**
      * Filter a Key-Value Kafka message
-     * @param key The key of Kafka message
+     *
+     * @param key   The key of Kafka message
      * @param value The value of kafka message
      * @return True if filter match else return false.
      */
     @Override
     public boolean test(String key, Map<String, Object> value) {
-        return process(key, value);
-    }
-
-    /**
-     * Check __MATCH flag
-     * @return True if __MATCH is true or false else.
-     */
-    public Boolean match() {
-        return __MATCH;
+        return process(key, value) == __MATCH;
     }
 
 }

@@ -158,12 +158,7 @@ public class StreamBuilder {
                                 );
                             } else if (func instanceof FilterFunc) {
                                 FilterFunc filterFunc = (FilterFunc) func;
-                                if (filterFunc.match()) {
-                                    kStream = kStream.filter(filterFunc);
-                                } else {
-                                    kStream = kStream.filterNot(filterFunc);
-                                }
-
+                                kStream = kStream.filter(filterFunc);
                             }
 
                             Map<String, Function> functions = streamFunctions.get(stream.getKey());
@@ -225,11 +220,7 @@ public class StreamBuilder {
                             String className = filterModel.getClassName();
                             try {
                                 FilterFunc filter = (FilterFunc) makeFunction(className, filterModel.getProperties());
-                                if (filter.match()) {
-                                    kStream = kStream.filter(filter);
-                                } else {
-                                    kStream = kStream.filterNot(filter);
-                                }
+                                kStream = kStream.filter(filter);
                                 filters.put(String.format("%s-%s", sink.getType(), sink.getTopic()), filter);
                             } catch (ClassNotFoundException e) {
                                 log.error("Couldn't find the class associated with the function {}", className);
