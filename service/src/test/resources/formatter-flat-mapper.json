@@ -14,7 +14,8 @@
             "commonFields": ["timestamp", "Q"],
             "filters": [
               {"name": "typeAFilter", "className": "io.wizzie.normalizer.funcs.impl.FieldFilter", "properties": {"dimension": "type", "value": "A"}},
-              {"name": "typeBFilter", "className": "io.wizzie.normalizer.funcs.impl.FieldFilter", "properties": {"dimension": "type", "value": "B"}}
+              {"name": "typeBFilter", "className": "io.wizzie.normalizer.funcs.impl.FieldFilter", "properties": {"dimension": "type", "value": "B"}},
+              {"name": "typeMATCHFilter", "className": "io.wizzie.normalizer.funcs.impl.FieldFilter", "properties": {"dimension": "match", "value": null, "__MATCH":  false}}
             ],
             "generators": [
               {
@@ -65,6 +66,16 @@
                       {"field": "type", "content": {"type": "constant", "value": "VALUE-N"}},
                       {"field": "value", "content": {"type": "fieldValue", "value": "Y"}},
                       {"field": "enable", "content": {"type": "constant", "value": true}}
+                    ]
+                  }
+                ]
+              },
+              {
+                "filter": "typeMATCHFilter",
+                "definitions": [
+                  {
+                    "apply": [
+                      {"field": "MATCH", "content": {"type": "constant", "value": "MATCH"}}
                     ]
                   }
                 ]

@@ -53,12 +53,12 @@ public class FormatterFlatMapperUnitTest {
     @Test
     public void building() {
         assertNotNull(formatterFlatMapper);
-        assertEquals(2, formatterFlatMapper.filters.size());
+        assertEquals(3, formatterFlatMapper.filters.size());
         assertTrue(formatterFlatMapper.filters.containsKey("typeAFilter"));
         assertTrue(formatterFlatMapper.filters.containsKey("typeBFilter"));
         assertTrue(formatterFlatMapper.filters.get("typeAFilter") instanceof FieldFilter);
         assertTrue(formatterFlatMapper.filters.get("typeBFilter") instanceof FieldFilter);
-        assertEquals(2, formatterFlatMapper.generators.size());
+        assertEquals(3, formatterFlatMapper.generators.size());
 
         List<Map<String, Object>> generators = formatterFlatMapper.generators;
         List<Map<String, Object>> generator1 = (List<Map<String, Object>>) generators.get(0).get("definitions");
@@ -171,6 +171,36 @@ public class FormatterFlatMapperUnitTest {
         KeyValue<String, Map<String, Object>> expectedKv2_2 = new KeyValue<>(key2, expectedMessage2_2);
 
         expectedList.add(expectedKv2_2);
+
+        assertEquals(expectedList, results);
+    }
+
+    @Test
+    public void processCompleteFilteredMATCHMessageCorrectly() {
+        List<KeyValue<String, Map<String, Object>>> expectedList = new ArrayList<>();
+
+        Map<String, Object> message1 = new HashMap<>();
+        message1.put("timestamp", 123456789L);
+        message1.put("type", "X");
+        message1.put("Q", true);
+        message1.put("V", "VALUE-V");
+        message1.put("W", "VALUE-W");
+        message1.put("X", "VALUE-X");
+        message1.put("Y", "VALUE-Y");
+        message1.put("match", "some");
+
+        String key1 = "KEY1";
+
+        List<KeyValue<String, Map<String, Object>>> results = (List<KeyValue<String, Map<String, Object>>>) formatterFlatMapper.process(key1, message1);
+
+        assertEquals(1, results.size());
+
+        Map<String, Object> expectedMessage1_1 = new HashMap<>();
+        expectedMessage1_1.put("timestamp", 123456789L);
+        expectedMessage1_1.put("Q", true);
+        expectedMessage1_1.put("MATCH", "MATCH");
+
+        expectedList.add(new KeyValue<>(key1, expectedMessage1_1));
 
         assertEquals(expectedList, results);
     }

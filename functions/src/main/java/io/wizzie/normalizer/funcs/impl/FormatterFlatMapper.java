@@ -63,7 +63,7 @@ public class FormatterFlatMapper extends FlatMapperFunction {
             for (Map<String, Object> generator : generators) {
                 String filter = (String) generator.get("filter");
 
-                if (filters.containsKey(filter) && filters.get(filter).process(key, value)) {
+                if (filters.containsKey(filter) && filters.get(filter).test(key, value)) {
                     List<Map<String, Object>> definitions = (List<Map<String, Object>>) generator.get("definitions");
                     someApply = true;
 
