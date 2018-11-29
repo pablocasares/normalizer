@@ -102,10 +102,4 @@ public abstract class MapperStoreFunction implements Function<KeyValue<String, M
      * @return A messages that are added to the current stream
      */
     public abstract KeyValue<String, Map<String, Object>> window(long timestamp);
-
-    @Override
-    public KeyValue<String, Map<String, Object>> punctuate(long timestamp) {
-        //DEPRECATED
-        return null;
-    }
 }
