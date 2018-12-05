@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.wizzie.bootstrapper.builder.Config;
 import io.wizzie.normalizer.builder.StreamBuilder;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.funcs.*;
 import io.wizzie.normalizer.model.PlanModel;
 import io.wizzie.normalizer.serializers.JsonDeserializer;
 import io.wizzie.normalizer.serializers.JsonSerde;
@@ -28,8 +27,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StreamFromMultipleInputTopicsIntegrationTest {
     private final static int NUM_BROKERS = 1;

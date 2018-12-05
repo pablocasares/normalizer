@@ -1,6 +1,5 @@
 package io.wizzie.normalizer.funcs.impl;
 
-import io.wizzie.normalizer.funcs.FilterFunc;
 import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.base.utils.Constants;
 import io.wizzie.normalizer.funcs.FilterFunc;
@@ -8,7 +7,6 @@ import io.wizzie.normalizer.funcs.FilterFunc;
 import java.util.Map;
 
 import static com.cookingfox.guava_preconditions.Preconditions.checkNotNull;
-import static io.wizzie.normalizer.base.utils.Constants.__KEY;
 
 public class StartWithFilter extends FilterFunc {
 

@@ -1,8 +1,8 @@
 package io.wizzie.normalizer.funcs.impl;
 
-import io.wizzie.normalizer.funcs.MapperFunction;
-import io.wizzie.normalizer.base.utils.ConvertFrom;
 import io.wizzie.metrics.MetricsManager;
+import io.wizzie.normalizer.base.utils.ConvertFrom;
+import io.wizzie.normalizer.funcs.MapperFunction;
 import org.apache.kafka.streams.KeyValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -5,9 +5,6 @@ import io.wizzie.bootstrapper.builder.Config;
 import io.wizzie.normalizer.base.builder.config.ConfigProperties;
 import io.wizzie.normalizer.exceptions.MaxOutputKafkaTopics;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.base.builder.config.ConfigProperties;
-import io.wizzie.normalizer.exceptions.MaxOutputKafkaTopics;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import org.junit.Test;
 
 import java.io.File;

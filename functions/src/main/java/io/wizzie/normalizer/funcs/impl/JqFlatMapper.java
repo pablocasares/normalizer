@@ -2,8 +2,8 @@ package io.wizzie.normalizer.funcs.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.wizzie.normalizer.funcs.FlatMapperFunction;
 import io.wizzie.metrics.MetricsManager;
+import io.wizzie.normalizer.funcs.FlatMapperFunction;
 import net.thisptr.jackson.jq.JsonQuery;
 import net.thisptr.jackson.jq.exception.JsonQueryException;
 import org.apache.kafka.streams.KeyValue;

@@ -4,11 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.wizzie.bootstrapper.builder.Config;
 import io.wizzie.normalizer.builder.StreamBuilder;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.funcs.FlatMapperFunction;
-import io.wizzie.normalizer.funcs.Function;
-import io.wizzie.normalizer.funcs.MapperFunction;
-import io.wizzie.normalizer.model.PlanModel;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import io.wizzie.normalizer.funcs.Function;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import io.wizzie.normalizer.model.PlanModel;
@@ -19,7 +14,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 

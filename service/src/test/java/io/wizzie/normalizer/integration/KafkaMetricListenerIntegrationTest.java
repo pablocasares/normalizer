@@ -1,11 +1,10 @@
 package io.wizzie.normalizer.integration;
 
 import io.wizzie.bootstrapper.builder.Config;
-import io.wizzie.normalizer.builder.Builder;
 import io.wizzie.normalizer.base.builder.config.ConfigProperties;
+import io.wizzie.normalizer.builder.Builder;
 import io.wizzie.normalizer.serializers.JsonDeserializer;
 import io.wizzie.normalizer.serializers.JsonSerde;
-import io.wizzie.normalizer.base.builder.config.ConfigProperties;
 import kafka.utils.MockTime;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
@@ -14,7 +13,6 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.integration.utils.EmbeddedKafkaCluster;
 import org.apache.kafka.streams.integration.utils.IntegrationTestUtils;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;

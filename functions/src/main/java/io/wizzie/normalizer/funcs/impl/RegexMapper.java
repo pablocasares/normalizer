@@ -4,7 +4,9 @@ import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import org.apache.kafka.streams.KeyValue;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

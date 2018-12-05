@@ -1,12 +1,9 @@
 package io.wizzie.normalizer.funcs.impl;
 
-import io.wizzie.normalizer.funcs.FilterFunc;
 import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.funcs.FilterFunc;
 
 import java.util.Map;
-
-import static io.wizzie.normalizer.base.utils.Constants.__KEY;
 
 public class IsStringFilter extends FilterFunc {
     String dimension;

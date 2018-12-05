@@ -1,12 +1,8 @@
 package io.wizzie.normalizer.funcs.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.wizzie.normalizer.builder.StreamBuilder;
 import io.wizzie.bootstrapper.builder.Config;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.funcs.FilterFunc;
-import io.wizzie.normalizer.funcs.Function;
-import io.wizzie.normalizer.model.PlanModel;
+import io.wizzie.normalizer.builder.StreamBuilder;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import io.wizzie.normalizer.funcs.FilterFunc;
 import io.wizzie.normalizer.funcs.Function;

@@ -1,7 +1,6 @@
 package io.wizzie.normalizer.funcs.impl.debug;
 
 import com.codahale.metrics.Meter;
-import io.wizzie.normalizer.funcs.MapperFunction;
 import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import org.apache.kafka.streams.KeyValue;

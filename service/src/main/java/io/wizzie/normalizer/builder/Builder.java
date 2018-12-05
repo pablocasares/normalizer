@@ -3,10 +3,6 @@ package io.wizzie.normalizer.builder;
 import com.codahale.metrics.jvm.JmxAttributeGauge;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.wizzie.bootstrapper.builder.*;
-import io.wizzie.normalizer.base.utils.Utils;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.model.PlanModel;
-import io.wizzie.normalizer.serializers.JsonSerde;
 import io.wizzie.metrics.MetricsConstant;
 import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.base.builder.config.ConfigProperties;
@@ -26,24 +22,24 @@ import org.slf4j.LoggerFactory;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
-import static io.wizzie.normalizer.base.builder.config.ConfigProperties.BOOTSTRAPPER_CLASSNAME;
-import static org.apache.kafka.streams.StreamsConfig.APPLICATION_ID_CONFIG;
-import static org.apache.kafka.streams.StreamsConfig.CLIENT_ID_CONFIG;
-import static org.apache.kafka.streams.StreamsConfig.NUM_STREAM_THREADS_CONFIG;
+import static org.apache.kafka.streams.StreamsConfig.*;
 
 
 public class Builder implements Listener {
     private static final Logger log = LoggerFactory.getLogger(Builder.class);
+
+    public KafkaStreams streams;
     Config config;
     StreamBuilder streamBuilder;
-    KafkaStreams streams;
     MetricsManager metricsManager;
     Bootstrapper bootstrapper;
+    Thread streamMonitor;
+    volatile boolean closed = false;
 
     public Builder(Config config) throws Exception {
         this.config = config;
@@ -71,10 +67,15 @@ public class Builder implements Listener {
     }
 
     public void close() throws Exception {
-        metricsManager.interrupt();
-        streamBuilder.close();
-        bootstrapper.close();
-        if (streams != null) streams.close();
+        if (!closed) {
+            log.info("Closing builder.");
+            metricsManager.interrupt();
+            streamBuilder.close();
+            bootstrapper.close();
+            if (streams != null && streams.state().isRunning()) streams.close(Duration.ofMinutes(1));
+            log.info("Closed builder.");
+            closed = true;
+        }
     }
 
     private void registerKafkaMetrics(Config config, MetricsManager metricsManager) {
@@ -161,9 +162,11 @@ public class Builder implements Listener {
         if (streams != null) {
             metricsManager.clean();
             streamBuilder.close();
-            streams.close(1, TimeUnit.MINUTES);
+            streamMonitor.interrupt();
+            streams.close(Duration.ofMinutes(1));
             log.info("Clean Normalizer process");
         }
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             PlanModel model = objectMapper.readValue(streamConfig, PlanModel.class);
@@ -205,6 +208,9 @@ public class Builder implements Listener {
             streams.start();
 
             registerKafkaMetrics(config, metricsManager);
+
+            streamMonitor = new Thread(new StreamMonitor(this));
+            streamMonitor.start();
 
             log.info("Started Normalizer with conf {}", config.getProperties());
         } catch (PlanBuilderException | IOException e) {

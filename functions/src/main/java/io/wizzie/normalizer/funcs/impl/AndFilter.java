@@ -1,7 +1,7 @@
 package io.wizzie.normalizer.funcs.impl;
 
-import io.wizzie.normalizer.funcs.FilterFunc;
 import io.wizzie.metrics.MetricsManager;
+import io.wizzie.normalizer.funcs.FilterFunc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

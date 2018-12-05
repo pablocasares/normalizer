@@ -4,8 +4,6 @@ import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import org.apache.kafka.streams.KeyValue;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import static com.cookingfox.guava_preconditions.Preconditions.checkNotNull;

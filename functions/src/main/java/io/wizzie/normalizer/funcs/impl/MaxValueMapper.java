@@ -1,6 +1,5 @@
 package io.wizzie.normalizer.funcs.impl;
 
-import io.wizzie.normalizer.funcs.MapperFunction;
 import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import org.apache.kafka.streams.KeyValue;

@@ -10,6 +10,7 @@ public class Normalizer {
 
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
+            log.info("Starting Normalizer engine.");
             Config config = new Config(args[0]);
             Builder builder = new Builder(config.clone());
 
@@ -19,9 +20,9 @@ public class Normalizer {
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
                 }
-                log.info("Stopped Normalizer process.");
-            }));
 
+                log.info("Stopped Normalizer engine.");
+            }));
 
         } else {
             log.error("Execute: java -cp ${JAR_PATH} io.wizzie.normalizer.Normalizer <config_file>");

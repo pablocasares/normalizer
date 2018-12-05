@@ -9,7 +9,10 @@ import io.wizzie.normalizer.base.builder.config.ConfigProperties;
 import io.wizzie.normalizer.exceptions.MaxOutputKafkaTopics;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class PlanModel {

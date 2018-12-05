@@ -1,7 +1,9 @@
 package io.wizzie.normalizer.builder;
 
 import io.wizzie.bootstrapper.builder.Config;
+import io.wizzie.metrics.MetricsManager;
 import io.wizzie.normalizer.base.builder.config.ConfigProperties;
+import io.wizzie.normalizer.base.utils.Constants;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import io.wizzie.normalizer.exceptions.TryToDoLoopException;
 import io.wizzie.normalizer.funcs.*;
@@ -10,8 +12,6 @@ import io.wizzie.normalizer.model.PlanModel;
 import io.wizzie.normalizer.model.SinkModel;
 import io.wizzie.normalizer.model.StreamModel;
 import io.wizzie.normalizer.serializers.JsonSerde;
-import io.wizzie.metrics.MetricsManager;
-import io.wizzie.normalizer.base.utils.Constants;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
@@ -83,7 +83,7 @@ public class StreamBuilder {
     }
 
     public void close() {
-        streamFunctions.forEach((stream, functions) -> functions.forEach((name, fucntion) -> fucntion.stop()));
+        streamFunctions.forEach((stream, functions) -> functions.forEach((name, function) -> function.stop()));
         clean();
     }
 

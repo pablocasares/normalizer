@@ -6,9 +6,6 @@ import io.wizzie.normalizer.builder.StreamBuilder;
 import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import io.wizzie.normalizer.funcs.Function;
 import io.wizzie.normalizer.model.PlanModel;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.funcs.Function;
-import io.wizzie.normalizer.model.PlanModel;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsConfig;
 import org.junit.AfterClass;
@@ -17,7 +14,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

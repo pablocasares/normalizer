@@ -8,11 +8,6 @@ import io.wizzie.normalizer.exceptions.PlanBuilderException;
 import io.wizzie.normalizer.funcs.Function;
 import io.wizzie.normalizer.funcs.MapperFunction;
 import io.wizzie.normalizer.model.PlanModel;
-import io.wizzie.normalizer.base.utils.ConvertFrom;
-import io.wizzie.normalizer.exceptions.PlanBuilderException;
-import io.wizzie.normalizer.funcs.Function;
-import io.wizzie.normalizer.funcs.MapperFunction;
-import io.wizzie.normalizer.model.PlanModel;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsConfig;
 import org.junit.AfterClass;
@@ -28,9 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FieldTypeConverterMapperUnitTest {
 

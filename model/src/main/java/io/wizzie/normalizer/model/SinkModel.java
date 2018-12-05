@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.wizzie.normalizer.base.utils.Constants;
 
-import static io.wizzie.normalizer.base.utils.Constants.__KEY;
-
 public class SinkModel {
     public final static String PARTITION_BY_KEY = Constants.__KEY;
     public final static String KAFKA_TYPE = "kafka";
