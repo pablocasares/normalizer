@@ -1132,3 +1132,51 @@ If we use this message using the MapFlattenMapper that is defined on the above e
 }
 
 ```
+
+###  DecimalPrecisionMapper
+
+The DecimalPrecisionMapper is a function that allows us to adjust the precision of the number. This functions always rounds up the number field.
+
+```json
+{
+  "name":"myDecimalPrecisionMapper",
+  "className":"io.wizzie.normalizer.funcs.impl.DecimalPrecisionMapper",
+  "properties": {
+    "scales": [
+        {
+            "dimensions": ["latitude", "longitude"],
+            "numberOfDecimals": 3
+        },
+        {
+            "dimensions": ["pi-number"]
+        }
+    ]
+  }
+}
+```
+
+The DecimalPrecisionMapper have 2 properties:
+
+* `dimensions`: Dimensions that contains the values to adjust.
+* `numberOfDecimals`: The precision of decimals. By default 2.
+
+I we have next json message:
+
+```json
+{
+    "latitude": 37.123151,
+    "longitude": 79.001589,
+    "pi-number": 3.14159265358979323846
+}
+```
+
+If we use this message using the DecimalPrecisionMapper that is defined on the above example, we get next output:
+
+```json
+{
+    "latitude": 37.123,
+    "longitude": 79.002,
+    "pi-number": 3.14
+}
+
+```

@@ -1,0 +1,33 @@
+{
+  "inputs":{
+    "topic1":["stream1"]
+  },
+  "streams":{
+    "stream1":{
+      "funcs":[
+        {
+          "name":"myDecimalPrecisionMapper",
+          "className":"io.wizzie.normalizer.funcs.impl.DecimalPrecisionMapper",
+          "properties": {
+            "scales": [
+              {
+                "dimensions": ["A", "B"],
+                "numberOfDecimals": 3
+              },
+              {
+                "dimensions": ["X", "Y"]
+              },
+              {
+                "dimensions": [null, "extra-long", null],
+                "numberOfDecimals": 11
+              }
+            ]
+          }
+        }
+      ],
+      "sinks":[
+        {"topic":"output"}
+      ]
+    }
+  }
+}
