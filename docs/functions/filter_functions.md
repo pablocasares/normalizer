@@ -28,7 +28,7 @@ The FieldFilter is a filter that allows us to filter if a specific dimension con
 The FieldFilter has two properties that are called `dimension` and `value`:
 - `dimension`: The dimension to get the value.
 - `value`: Value to compare with obtained value.
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -38,7 +38,7 @@ If we have next JSON message:
 }
 ```
 
-The FieldFilter doesn't match and return `false` value. Bu if we have next message:
+The FieldFilter doesn't match and return `false` value. But if we have the next message:
 
 ```json
 {
@@ -70,7 +70,7 @@ The MultiValueFieldFilter is a filter that allows us to filter if a specific dim
 The FieldFilter has two properties that are called `dimension` and `value`:
 - `dimension`: The dimension to get the value.
 - `values`: Values to compare with obtained value.
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -80,7 +80,7 @@ If we have next JSON message:
 }
 ```
 
-The FieldFilter doesn't match and return `false` value. Bu if we have next message:
+The FieldFilter doesn't match and return `false` value. But if we have the next message:
 
 ```json
 {
@@ -119,7 +119,7 @@ The ContainsDimensionFilter is a filter that allows us to filter if a JSON conta
 ```
 The ContainsDimensionFilter has only one property named `dimensions`. The property indicates the dimensions that json message must have.
 
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -129,7 +129,7 @@ If we have next JSON message:
 }
 ```
 
-The ContainsDimensionFilter doesn't match. But if we have next JSON message:
+The ContainsDimensionFilter doesn't match. But if we have the next JSON message:
 
 ```json
 {
@@ -173,7 +173,7 @@ The StartWithFilter has two properties called `dimension` and `start_with`:
 * `dimension`: Dimension of which we get the value to filter.
 * `start_with`: String to apply to value. If match then return `true` else return `false`.
 
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -183,7 +183,7 @@ If we have next JSON message:
 }
 ```
 
-The StartWithFilter doesn't match. But if we have next JSON message:
+The StartWithFilter doesn't match. But if we have the next JSON message:
 
 ```json
 {
@@ -314,7 +314,7 @@ The IsStringFilter is a filter that allows us to filter if a specific dimension 
 The IsStringFilter has two properties that are called `dimension` and `value`:
 - `dimension`: The dimension to check the value.
 
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -324,7 +324,7 @@ If we have next JSON message:
 }
 ```
 
-The IsStringFilter doesn't match and return `false` value. Bu if we have next message:
+The IsStringFilter doesn't match and return `false` value. But if we have the next message:
 
 ```json
 {
@@ -353,7 +353,7 @@ The IsListFilter is a filter that allows us to filter if a specific dimension is
 The IsListFilter has two properties that are called `dimension` and `value`:
 - `dimension`: The dimension to check the value.
 
-If we have next JSON message:
+If we have the next JSON message:
 
 ```json
 {
@@ -363,7 +363,7 @@ If we have next JSON message:
 }
 ```
 
-The IsListFilter doesn't match and return `false` value. Bu if we have next message:
+The IsListFilter doesn't match and return `false` value. But if we have the next message:
 
 ```json
 {
@@ -374,3 +374,106 @@ The IsListFilter doesn't match and return `false` value. Bu if we have next mess
 ```
 
 The IsListFilter match and return `true` value
+
+### NumberComparingFilter
+
+The NumberComparingFilter is a filter that allows us to filter if a specific dimension is greater or lower than a number or other dimension.
+
+```json
+{
+  "name":"numberComparing",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+      "firstComparableDimension": "valueA",
+      "secondComparable": "valueB",
+      "condition": "GREATER"
+  }
+}
+```
+
+The NumberComparingFilter has three properties that are called `firstComparableDimension`, `secondComparable` and `condition`:
+
+- `firstComparableDimension` : The dimension to compare.
+- `secondComparable` : The dimension or number to compare.
+- `condition` : This property have two values `GREATER` or `LOWER`. By default is `GREATER`.
+
+If we have the next defined filters:
+
+```json
+{
+  "name":"greaterThanNumberFilter",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+    "firstComparableDimension": "ValueToCompare",
+    "secondComparable": 2.5,
+    "condition": "GREATER"
+  }
+},
+{
+  "name":"lowerThanNumberFilter",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+    "firstComparableDimension": "ValueToCompare",
+    "secondComparable": 2.5,
+    "condition": "LOWER"
+  }
+},
+{
+  "name":"greaterThanDimensionFilter",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+    "firstComparableDimension": "ValueToCompare",
+    "secondComparable": "MaxValue",
+    "condition": "GREATER"
+  }
+},
+{
+  "name":"lowerThanDimensionFilter",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+    "firstComparableDimension": "ValueToCompare",
+    "secondComparable": "MaxValue",
+    "condition": "LOWER"
+  }
+},
+{
+  "name":"defaultConditionFilter",
+  "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+  "properties": {
+    "firstComparableDimension": "ValueToCompare",
+    "secondComparable": 2.5
+  }
+}
+```
+
+And we have the next JSON message:
+
+```json
+{
+  "ValueToCompare": "3.5",
+  "MaxValue": 7.05,
+  "required": true
+}
+```
+
+The results for each filter are the next:
+
+- `greaterThanNumberFilter` returns `true` because `ValueToCompare` is greater than `2.5`.
+- `lowerThanNumberFilter` returns `false` because `ValueToCompare` is greater than `2.5`
+- `greaterThanDimensionFilter` returns `false` because `ValueToCompare` is lower than `MaxValue`.
+- `lowerThanDimensionFilter` returns `true` because `ValueToCompare` is lower than `MaxValue`.
+- `defaultConditionFilter` returns `false` because `ValueToCompare` is lower than `MaxValue`. In this filter by default the condition is `GREATER`.
+
+If we have the next JSON message:
+
+```json
+{
+  "ValueToCompare": "2.5",
+  "MaxValue": 2.5,
+  "required": true
+}
+```
+
+All the filters return `false` due to `ValueToCompare` isn't greater or lower than `2.5` or `MaxValue`. 
+
+By default if the specified dimension in the property `firstComparableDimension` or `secondComparable` doesn't contain a number value (i.e: `string`, `boolean` or `null`) the NumberComparingFilter always returns  `false`.

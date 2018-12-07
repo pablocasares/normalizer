@@ -1,0 +1,58 @@
+{
+  "inputs":{
+    "topic1":["stream1"]
+  },
+  "streams":{
+    "stream1":{
+      "funcs":[
+        {
+          "name":"greaterThanNumberFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": "ValueToCompare",
+            "secondComparable": 2.5,
+            "condition": "GREATER"
+          }
+        },
+        {
+          "name":"lowerThanNumberFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": "ValueToCompare",
+            "secondComparable": 2.5,
+            "condition": "LOWER"
+          }
+        },
+        {
+          "name":"greaterThanDimensionFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": "ValueA",
+            "secondComparable": "ValueB",
+            "condition": "GREATER"
+          }
+        },
+        {
+          "name":"lowerThanDimensionFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": "ValueA",
+            "secondComparable": "ValueB",
+            "condition": "LOWER"
+          }
+        },
+        {
+          "name":"defaultConditionFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": "ValueToCompare",
+            "secondComparable": 2.5
+          }
+        }
+      ],
+      "sinks":[
+        {"topic":"output"}
+      ]
+    }
+  }
+}

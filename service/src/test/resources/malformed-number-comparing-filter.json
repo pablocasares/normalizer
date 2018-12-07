@@ -1,0 +1,23 @@
+{
+  "inputs":{
+    "topic1":["stream1"]
+  },
+  "streams":{
+    "stream1":{
+      "funcs":[
+        {
+          "name":"malformedNumberComparingFilter",
+          "className":"io.wizzie.normalizer.funcs.impl.NumberComparingFilter",
+          "properties": {
+            "firstComparableDimension": null,
+            "secondComparable": null,
+            "condition": null
+          }
+        }
+      ],
+      "sinks":[
+        {"topic":"output"}
+      ]
+    }
+  }
+}
