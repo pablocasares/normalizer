@@ -44,8 +44,8 @@ public class Builder implements Listener {
     public Builder(Config config) throws Exception {
         this.config = config;
 
-        config.put("key.serde", Serdes.StringSerde.class);
-        config.put("value.serde", JsonSerde.class);
+        config.put(DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.StringSerde.class);
+        config.put(DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonSerde.class);
 
         metricsManager = new MetricsManager(config.getMapConf());
         metricsManager.start();

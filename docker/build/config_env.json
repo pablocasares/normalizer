@@ -12,5 +12,5 @@
   "multi.id": ${MULTI_ID},
   "max.output.kafka.topics": ${MAX_OUTPUT_KAFKA_TOPICS},
   "bootstrap.kafka.topics": ${BOOTSTRAP_KAFKA_TOPICS},
-  "timestamp.extractor":"org.apache.kafka.streams.processor.WallclockTimestampExtractor"
+  "default.timestamp.extractor":"org.apache.kafka.streams.processor.WallclockTimestampExtractor"
 }
