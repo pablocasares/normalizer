@@ -292,6 +292,8 @@ public class StreamBuilder {
         addedFuncsToStreams.clear();
         usedStores.clear();
         kStreams.clear();
+        streamEdges.clear();
+        streamIterationCreation.clear();
         addedNewStream = true;
     }
 
