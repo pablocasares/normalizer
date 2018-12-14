@@ -25,24 +25,33 @@ public class StreamMonitor extends Thread {
         log.info("Start Stream Monitor thread.");
 
         while (monitoring && !isInterrupted()) {
-            List<Boolean> streamsRunning = streams.localThreadsMetadata()
-                    .stream()
-                    .map(x -> !x.threadState().equals(StreamThread.State.DEAD.name()))
-                    .collect(Collectors.toList());
+            if (streams.state().isRunning()) {
+                List<Boolean> streamsRunning = streams.localThreadsMetadata()
+                        .stream()
+                        .map(x -> !x.threadState().equals(StreamThread.State.DEAD.name()))
+                        .collect(Collectors.toList());
 
-            log.debug("Check stream threads are running: {}", streamsRunning.toString());
-            if (!streamsRunning.contains(true)) {
-                log.info("Detect streams is shutdown, I'm going to close the builder.");
-                try {
-                    builder.close();
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
+                log.debug("Check stream threads are running: {}", streamsRunning.toString());
+                if (!streamsRunning.contains(true)) {
+                    log.info("Detect streams is shutdown, I'm going to close the builder.");
+                    try {
+                        builder.close();
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
+
+                    monitoring = false;
+                } else {
+                    try {
+                        Thread.sleep(60000);
+                    } catch (InterruptedException e) {
+                        log.error(e.getMessage(), e);
+                    }
                 }
-
-                monitoring = false;
-            } else {
+            }else {
                 try {
                     Thread.sleep(60000);
+                    log.info("Streams not running. Stream Monitor sleeping.");
                 } catch (InterruptedException e) {
                     log.error(e.getMessage(), e);
                 }
