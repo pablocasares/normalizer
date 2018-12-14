@@ -4,7 +4,19 @@ layout: single
 toc: false
 ---
 
-Normalizer is a stream processing engine based of Kafka Streams. Normalizer does maps (stateless and stateful), flatmaps and filters by us. You only need to define a JSON stream where you specify the process logic and how the messages are transformed.
+Normalizer is a stream processing engine based on Kafka Streams. Normalizer does maps (stateless and statefull), flatmaps and filters by us. You only need to define a JSON stream where you specify the process logic and how the message are transformed.
+It allows you to normalize data streams from different sources to convert them to the same data schema!
+Normalizer offers us: scalability, fault tolerance, back-pressure, KV states (RocksDB) and full Kafka integration ... [Try it now!!](https://wizzie-io.github.io/normalizer/getting_started/base_tutorial)
+
+It reads json messages from Apache Kafka and writes them back normalized to Kafka.
+ 
+Some of its abilities are:
+
+* Transform data fields (change values/keys, split fields, replace values and more. Check docs).
+* Repartition kafka topics. (Change message keys)
+* Filter messages based on conditions.
+* Easy scalable (automatic discovering and load balancing).
+* Check docs for more!
 
 Normalizer is the one of the components of Wizzie Workflow used by:
 
