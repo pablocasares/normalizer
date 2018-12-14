@@ -39,6 +39,11 @@ docs:
       - title: Functions Repository
         url: https://wizzie-io.github.io/normalizer-functions/
 
+  - title: Scalability
+    children:
+      - title: How to scale
+        url: /scalability/scalability
+
   - title: Docker
     children:
       - title: Docker Configuration

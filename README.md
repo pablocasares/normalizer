@@ -18,9 +18,19 @@ It reads json messages from Apache Kafka and writes them back normalized to Kafk
  
 Some of its abilities are:
 
-* Transform data fields (change values/keys, split fields, replace values and more. Check docs).
-* Repartition kafka topics. (Change message keys)
-* Filter messages based on conditions.
+* Add fields.
+* Select or simplify fields.
+* Replace values.
+* Join two or more values.
+* Select max/min from an array of values.
+* Classify numeric values
+* Split one value into multiple dimensions
+* Convert time formats.
+* Convert field types.
+* Calculate arithmetic values
+* Rename fields.
+* Filtering
+* Transform one message into several
 * Easy scalable (automatic discovering and load balancing).
 * Check docs for more!
 
