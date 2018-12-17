@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.wizzie.normalizer</groupId>
     <artifactId>normalizer</artifactId>
-    <version>0.7.2</version>
+    <version>0.7.3-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -44,7 +44,7 @@
     <scm>
         <developerConnection>scm:git:git@github.com:wizzie-io/normalizer.git</developerConnection>
         <connection>scm:git:git@github.com:wizzie-io/normalizer.git</connection>
-        <tag>normalizer-0.7.2</tag>
+        <tag>HEAD</tag>
         <url>git@github.com:wizzie-io/normalizer.git</url>
     </scm>
 
