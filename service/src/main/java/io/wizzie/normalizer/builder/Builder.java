@@ -213,7 +213,7 @@ public class Builder implements Listener {
             streamMonitor.start();
 
             log.info("Started Normalizer with conf {}", config.getProperties());
-        } catch (PlanBuilderException | IOException e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
     }
