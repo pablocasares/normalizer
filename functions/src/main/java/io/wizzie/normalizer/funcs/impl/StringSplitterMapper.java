@@ -24,7 +24,7 @@ public class StringSplitterMapper extends MapperFunction {
         dimension = checkNotNull((String) properties.get("dimension"), "dimension cannot be null");
         delimiter = checkNotNull((String) properties.get("delimiter"), "delimiter cannot be null");
         fieldNames = checkNotNull((List<String>) properties.get("fields"), "fields cannot be null");
-        removeDimension = (boolean) properties.getOrDefault("delete_dimension", false);
+        removeDimension = (boolean) properties.getOrDefault("deleteDimension", false);
     }
 
     @Override

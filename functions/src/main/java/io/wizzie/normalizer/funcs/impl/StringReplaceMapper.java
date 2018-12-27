@@ -17,8 +17,8 @@ public class StringReplaceMapper extends MapperFunction {
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
         dimension = (String) checkNotNull(properties.get("dimension"), "dimension cannot be null");
-        targetString = (String) checkNotNull(properties.get("target_string"), "target_string cannot be null");
-        replacementString = (String) checkNotNull(properties.get("replacement_string"), "replacement_string cannot be null");
+        targetString = (String) checkNotNull(properties.get("targetString"), "targetString cannot be null");
+        replacementString = (String) checkNotNull(properties.get("replacementString"), "replacementString cannot be null");
     }
 
     @Override

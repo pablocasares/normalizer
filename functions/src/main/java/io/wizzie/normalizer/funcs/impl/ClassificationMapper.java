@@ -20,10 +20,10 @@ public class ClassificationMapper extends MapperFunction {
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
         dimension = checkNotNull((String) properties.get("dimension"), "dimension cannot be null");
-        targetDimension = checkNotNull((String) properties.get("new_dimension"), "new_dimension cannot be null");
+        targetDimension = checkNotNull((String) properties.get("newDimension"), "newDimension cannot be null");
         intervals = checkNotNull((List<Number>) properties.get("intervals"), "intervals cannot be null");
         classification = checkNotNull((List<String>) properties.get("classification"), "classification cannot be null");
-        unknownValue = checkNotNull((Number) properties.get("unknown_value"), "unknown_value cannot be null");
+        unknownValue = checkNotNull((Number) properties.get("unknownValue"), "unknownValue cannot be null");
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ClassificationMapper extends MapperFunction {
             if (value.containsKey(dimension)) {
 
                 Number data = (Number) value.get(dimension);
-                String classificationName = "not_classified";
+                String classificationName = "notClassified";
 
                 if (data == null || data.doubleValue() == unknownValue.doubleValue()) {
                     classificationName = "unknown";
@@ -46,7 +46,7 @@ public class ClassificationMapper extends MapperFunction {
                         }
                     }
 
-                    if (classificationName.equals("not_classified")) {
+                    if (classificationName.equals("notClassified")) {
                         classificationName = classification.get(i);
                     }
                 }

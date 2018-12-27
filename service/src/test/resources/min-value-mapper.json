@@ -10,7 +10,7 @@
           "className":"io.wizzie.normalizer.funcs.impl.MinValueMapper",
           "properties": {
             "dimension": "measures",
-            "min_dimension_name": "min_measure"
+            "minDimensionName": "min_measure"
           }
         }
       ],

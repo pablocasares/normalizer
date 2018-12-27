@@ -21,7 +21,7 @@
           "properties": {
             "counters": ["X"],
             "timestamp": "timestamp",
-            "firsttimeview": false
+            "firstTimeView": false
           },
           "stores": ["counter-store"]
         }

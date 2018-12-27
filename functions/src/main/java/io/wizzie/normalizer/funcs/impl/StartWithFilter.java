@@ -16,7 +16,7 @@ public class StartWithFilter extends FilterFunc {
 
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
-        startWithValue = checkNotNull((String) properties.get("start_with"), "start_with cannot be null");
+        startWithValue = checkNotNull((String) properties.get("startWith"), "startWith cannot be null");
         dimension = checkNotNull((String) properties.get("dimension"), "dimension cannot be null");
 
         if (dimension.equals(Constants.__KEY)) isDimensionKey = true;

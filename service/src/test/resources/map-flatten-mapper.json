@@ -9,9 +9,9 @@
           "name":"myMapFlattenMapper",
           "className":"io.wizzie.normalizer.funcs.impl.MapFlattenMapper",
           "properties": {
-            "key_dimension": "key_dim",
-            "flat_dimension": "data",
-            "output_dimension": "array_data"
+            "keyDimension": "key_dim",
+            "flatDimension": "data",
+            "outputDimension": "array_data"
           }
         }
       ],
