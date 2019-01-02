@@ -11,7 +11,7 @@
           "properties": {
             "dimensionToBuild": ["dim1", "dim2", "dim3"],
             "dimension": "array-dim",
-            "delete_dimension": true
+            "deleteDimension": true
           }
         }
       ],

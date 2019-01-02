@@ -10,10 +10,10 @@
           "className":"io.wizzie.normalizer.funcs.impl.ClassificationMapper",
           "properties": {
             "dimension": "DIM-C",
-            "new_dimension": "NEW-DIM",
+            "newDimension": "NEW-DIM",
             "classification": ["bad", "low", "medium", "good", "excellent"],
             "intervals": [-85, -80, -70, -60],
-            "unknown_value": 0
+            "unknownValue": 0
           }
         }
       ],

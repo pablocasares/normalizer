@@ -9,7 +9,7 @@
           "name":"myArrayFlatMapper",
           "className":"io.wizzie.normalizer.funcs.impl.ArrayFlattenMapper",
           "properties": {
-            "flat_dimension": "ARRAY"
+            "flatDimension": "ARRAY"
           }
         }
       ],

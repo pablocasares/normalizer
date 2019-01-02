@@ -10,14 +10,14 @@
           "className":"io.wizzie.normalizer.funcs.impl.StartWithFilter",
           "properties": {
             "dimension": "__KEY",
-            "start_with": "FILTER"
+            "startWith": "FILTER"
           }
         },{
           "name":"myValueStartWithFilter",
           "className":"io.wizzie.normalizer.funcs.impl.StartWithFilter",
           "properties": {
             "dimension": "TYPE",
-            "start_with": "YES"
+            "startWith": "YES"
           }
         }
       ],

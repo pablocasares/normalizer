@@ -18,7 +18,7 @@ public class MinValueMapper extends MapperFunction {
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
         dimension = (String) checkNotNull(properties.get("dimension"), "dimension cannot be null");
-        newDimension = (String) properties.getOrDefault("min_dimension_name", "min_value");
+        newDimension = (String) properties.getOrDefault("minDimensionName", "minValue");
     }
 
     @Override

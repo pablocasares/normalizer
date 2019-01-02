@@ -18,7 +18,7 @@ public class MaxValueMapper extends MapperFunction {
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
         dimension = (String) checkNotNull(properties.get("dimension"), "dimension cannot be null");
-        newDimension = (String) properties.getOrDefault("max_dimension_name", "max_value");
+        newDimension = (String) properties.getOrDefault("maxDimensionName", "maxValue");
     }
 
     @Override

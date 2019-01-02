@@ -15,7 +15,7 @@ public class ArrayDecompositionMapper extends MapperFunction {
 
     public static final String DIMENSION_TO_BUILD = "dimensionToBuild";
     public static final String DIMENSION = "dimension";
-    public static final String DELETE_DIMENSION = "delete_dimension";
+    public static final String DELETE_DIMENSION = "deleteDimension";
 
     private final String ERROR_MESSAGE_PATTERN = "%s cannot be null";
 

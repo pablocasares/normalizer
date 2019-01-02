@@ -27,7 +27,7 @@ public class DiffCounterStoreMapper extends MapperStoreFunction {
         sendIfZero = (Boolean) properties.get("sendIfZero");
         timestampField = String.valueOf(properties.get("timestamp"));
         keys = (List<String>) properties.get("keys");
-        firstTimeView = (Boolean) properties.get("firsttimeview");
+        firstTimeView = (Boolean) properties.get("firstTimeView");
 
         if (firstTimeView == null) firstTimeView = true;
 
@@ -133,7 +133,7 @@ public class DiffCounterStoreMapper extends MapperStoreFunction {
                 .append("stores: ").append(storeCounter.name()).append(", ")
                 .append("timestamp: ").append(timestampField).append(", ")
                 .append("keys: ").append(keys).append(", ")
-                .append("firsttimeview: ").append(firstTimeView)
+                .append("firstTimeView: ").append(firstTimeView)
                 .append("} ");
 
         return builder.toString();

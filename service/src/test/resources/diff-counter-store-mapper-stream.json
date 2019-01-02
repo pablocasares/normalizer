@@ -12,7 +12,7 @@
             "counters": ["X"],
             "timestamp": "time",
             "keys": ["gateway", "interface"],
-            "firsttimeview": true
+            "firstTimeView": true
           },
           "stores":["counter-store"]
         }

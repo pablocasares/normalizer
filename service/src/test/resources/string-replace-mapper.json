@@ -10,8 +10,8 @@
           "className":"io.wizzie.normalizer.funcs.impl.StringReplaceMapper",
           "properties": {
             "dimension": "DIM-C",
-            "target_string": "-",
-            "replacement_string": "."
+            "targetString": "-",
+            "replacementString": "."
           }
         }
       ],

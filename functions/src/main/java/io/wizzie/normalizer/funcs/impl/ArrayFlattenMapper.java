@@ -16,7 +16,7 @@ public class ArrayFlattenMapper extends FlatMapperFunction {
 
     @Override
     public void prepare(Map<String, Object> properties, MetricsManager metricsManager) {
-        flatDimension = (String) properties.get("flat_dimension");
+        flatDimension = (String) properties.get("flatDimension");
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ArrayFlattenMapper extends FlatMapperFunction {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(" {")
-                .append("flat_dimension: ").append(flatDimension).append("} ");
+                .append("flatDimension: ").append(flatDimension).append("} ");
 
         return builder.toString();
     }
