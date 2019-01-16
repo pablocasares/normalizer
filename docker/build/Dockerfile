@@ -23,7 +23,8 @@ ENV METRIC_ENABLE=true \
     METRIC_KAFKA_TOPIC=__metrics \
     LOG_LEVEL=info \
     GENERAL_LOG_LEVEL=info \
-    JVM_OPTIONS="-Xmx512m -Xms512m"
+    JVM_OPTIONS="-Djdk.nio.maxCachedBufferSize=262144 -Xmx30m -Xms30m -XX:MaxDirectMemorySize=15m -XX:MaxMetaspaceSize=30m -XX:SurvivorRatio=6 -Xss512k -XX:ReservedCodeCacheSize=15m -XX:NewSize=15m" \
+    MALLOC_ARENA_MAX=1
 
 CMD exec /bin/normalizer-start.sh
 
