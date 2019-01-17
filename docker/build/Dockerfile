@@ -23,7 +23,21 @@ ENV METRIC_ENABLE=true \
     METRIC_KAFKA_TOPIC=__metrics \
     LOG_LEVEL=info \
     GENERAL_LOG_LEVEL=info \
-    JVM_OPTIONS="-Xmx512m -Xms512m"
+    JVM_OPTIONS="-Djdk.nio.maxCachedBufferSize=262144 -Xmx30m -Xms30m -XX:MaxDirectMemorySize=15m -XX:MaxMetaspaceSize=30m -XX:SurvivorRatio=6 -Xss512k -XX:ReservedCodeCacheSize=15m -XX:NewSize=15m" \
+    MALLOC_ARENA_MAX=1 \
+    DEFAULT_TIMESTAMP_EXTRACTOR=org.apache.kafka.streams.processor.WallclockTimestampExtractor \
+    PRODUCER_BUFFER_MEMORY=102400 \
+    CONSUMER_FETCH_MAX_BYTES=102400 \
+    CONSUMER_MAX_POLL_RECORDS=50 \
+    CONSUMER_FETCH_MAX_WAIT_MS=500 \
+    CONSUMER_SEND_BUFFER_BYTES=131072 \
+    CONSUMER_RECEIVE_BUFFER_BYTES=65536 \
+    PRODUCER_SEND_BUFFER_BYTES=131072 \
+    PRODUCER_RECEIVE_BUFFER_BYTES=32768 \
+    BUFFERED_RECORDS_PER_PARTITION=500
+
+
+
 
 CMD exec /bin/normalizer-start.sh
 

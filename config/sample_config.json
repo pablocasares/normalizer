@@ -8,5 +8,14 @@
   "metric.listeners": ["io.wizzie.metrics.listeners.ConsoleMetricListener"],
   "metric.interval": 60000,
   "multi.id": false,
-  "bootstrap.kafka.topics":["__normalizer_bootstrap"]
+  "bootstrap.kafka.topics":["__normalizer_bootstrap"],
+  "producer.buffer.memory": 102400,
+  "consumer.fetch.max.bytes": 102400,
+  "consumer.max.poll.records": 50,
+  "consumer.fetch.max.wait.ms": 500,
+  "consumer.send.buffer.bytes": 131072,
+  "consumer.receive.buffer.bytes": 65536,
+  "producer.send.buffer.bytes": 131072,
+  "producer.receive.buffer.bytes": 32768,
+  "buffered.records.per.partition": 500
 }
