@@ -43,8 +43,12 @@ public class StreamerKafkaConfig {
             String streamConfig = stringBuffer.toString();
             ObjectMapper objectMapper = new ObjectMapper();
             PlanModel model = objectMapper.readValue(streamConfig, PlanModel.class);
-            Config config = new Config();
-            model.validate(config);
+
+            // Check if we have to stop the current plan.
+            if(!streamConfig.equals("null\n")) {
+                Config config = new Config();
+                model.validate(config);
+            }
 
             KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
             producer.send(new ProducerRecord<>("__normalizer_bootstrap", 0, args[1], streamConfig),
@@ -56,14 +60,15 @@ public class StreamerKafkaConfig {
                             System.out.println(exception.getMessage());
                             exception.printStackTrace();
                         }
-                    })
+                     })
             );
 
             producer.flush();
             producer.close();
-
-            System.out.println("New executing plan: ");
-            System.out.println(model.printExecutionPlan());
+            if(!streamConfig.equals("null\n")) {
+                System.out.println("New executing plan: ");
+                System.out.println(model.printExecutionPlan());
+            }
         } else if (args.length == 2) {
             Properties consumerConfig = new Properties();
             consumerConfig.put(BOOTSTRAP_SERVERS_CONFIG, args[0]);
