@@ -31,25 +31,29 @@ public class StreamerKafkaConfig {
             properties.put(BOOTSTRAP_SERVERS_CONFIG, args[0]);
             properties.put(ACKS_CONFIG, "1");
 
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(args[2]));
+            PlanModel model = null;
+            String streamConfig;
+            //Check stop current processing.
+            if (args[2].equals("--stop")) {
+                streamConfig = null;
+            } else {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(args[2]));
 
-            StringBuilder stringBuffer = new StringBuilder();
-            String line;
+                StringBuilder stringBuffer = new StringBuilder();
+                String line;
 
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line).append("\n");
-            }
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(line).append("\n");
+                }
 
-            String streamConfig = stringBuffer.toString();
-            ObjectMapper objectMapper = new ObjectMapper();
-            PlanModel model = objectMapper.readValue(streamConfig, PlanModel.class);
+                streamConfig = stringBuffer.toString();
+                ObjectMapper objectMapper = new ObjectMapper();
+                model = objectMapper.readValue(streamConfig, PlanModel.class);
 
-            // Check if we have to stop the current plan.
-            if(!streamConfig.equals("null\n")) {
                 Config config = new Config();
                 model.validate(config);
-            }
 
+            }
             KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
             producer.send(new ProducerRecord<>("__normalizer_bootstrap", 0, args[1], streamConfig),
                     ((metadata, exception) -> {
@@ -60,12 +64,12 @@ public class StreamerKafkaConfig {
                             System.out.println(exception.getMessage());
                             exception.printStackTrace();
                         }
-                     })
+                    })
             );
 
             producer.flush();
             producer.close();
-            if(!streamConfig.equals("null\n")) {
+            if (model != null) {
                 System.out.println("New executing plan: ");
                 System.out.println(model.printExecutionPlan());
             }
@@ -124,6 +128,7 @@ public class StreamerKafkaConfig {
             }
         } else {
             System.out.println("Usage: java -cp normalizer-selfcontained.jar io.wizzie.normalizer.base.utils.bootstrap.StreamerKafkaConfig <bootstrap_kafka_servers> <app_id> [stream_config_path]");
+            System.out.println("To stop current processing plan use: java -cp normalizer-selfcontained.jar io.wizzie.normalizer.base.utils.bootstrap.StreamerKafkaConfig <bootstrap_kafka_servers> <app_id> --stop");
         }
     }
 }

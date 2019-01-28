@@ -166,7 +166,7 @@ public class Builder implements Listener {
         }
 
         try {
-            if (streamConfig.equals("null\n")) {
+            if (streamConfig == null) {
                 log.info("-------- STOPPED NORMALIZER PROCESSING --------");
             } else {
                 ObjectMapper objectMapper = new ObjectMapper();
