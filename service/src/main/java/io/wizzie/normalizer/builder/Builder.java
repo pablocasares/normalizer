@@ -164,11 +164,11 @@ public class Builder implements Listener {
             streams.close(Duration.ofMinutes(1));
             log.info("Clean Normalizer process");
         }
-
         try {
-            if (streamConfig == null) {
+            if (streamConfig == null && streams != null) {
                 log.info("-------- STOPPED NORMALIZER PROCESSING --------");
-            } else {
+                streams = null;
+            } else if (streamConfig != null) {
                 ObjectMapper objectMapper = new ObjectMapper();
                 PlanModel model = objectMapper.readValue(streamConfig, PlanModel.class);
                 log.info("Execution plan: {}", model.printExecutionPlan());
