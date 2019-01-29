@@ -58,13 +58,11 @@ public class KafkaBootstrapperStopIntegrationTest {
 
         CLUSTER.createTopic(BOOTSTRAP_TOPIC, 1, REPLICATION_FACTOR);
 
-
         producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CLUSTER.bootstrapServers());
         producerConfig.put(ProducerConfig.ACKS_CONFIG, "all");
         producerConfig.put(ProducerConfig.RETRIES_CONFIG, 0);
         producerConfig.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, Serdes.String().serializer().getClass());
         producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-
 
         consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, CLUSTER.bootstrapServers());
         consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "test-consumer");
@@ -179,7 +177,6 @@ public class KafkaBootstrapperStopIntegrationTest {
         IntegrationTestUtils.produceKeyValuesSynchronously(INPUT_TOPIC, Arrays.asList(kvStream1, kvStream2), producerConfig, MOCK_TIME);
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         IntegrationTestUtils.waitUntilMinKeyValueRecordsReceived(consumerConfig, OUTPUT_TOPIC1, 1);
-
     }
 
     @Test
@@ -294,7 +291,6 @@ public class KafkaBootstrapperStopIntegrationTest {
         receivedMessagesFromOutput = IntegrationTestUtils.waitUntilMinKeyValueRecordsReceived(consumerConfig, OUTPUT_TOPIC1, 2);
 
         assertEquals(expectedDataKv, receivedMessagesFromOutput.get(1));
-
     }
 
     public static String getFileContent(File file) throws IOException {
