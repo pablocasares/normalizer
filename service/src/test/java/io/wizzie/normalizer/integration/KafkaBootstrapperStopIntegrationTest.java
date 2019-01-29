@@ -73,7 +73,7 @@ public class KafkaBootstrapperStopIntegrationTest {
         consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
     }
 
-    @Test (expected = java.lang.AssertionError.class)
+    @Test(expected = java.lang.AssertionError.class)
     public void kafkaBootstrapperShouldWork() throws Exception {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         File file = new File(classLoader.getResource("kafka-bootstrapper-integration-test-1.json").getFile());
@@ -171,7 +171,7 @@ public class KafkaBootstrapperStopIntegrationTest {
             }
         }
 
-        if(!close){
+        if (!close) {
             throw new RuntimeException("Should close.");
         }
 
@@ -179,6 +179,121 @@ public class KafkaBootstrapperStopIntegrationTest {
         IntegrationTestUtils.produceKeyValuesSynchronously(INPUT_TOPIC, Arrays.asList(kvStream1, kvStream2), producerConfig, MOCK_TIME);
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         IntegrationTestUtils.waitUntilMinKeyValueRecordsReceived(consumerConfig, OUTPUT_TOPIC1, 1);
+
+    }
+
+    @Test
+    public void kafkaBootstrapperShouldWorkAfterClose() throws Exception {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File(classLoader.getResource("kafka-bootstrapper-integration-test-1.json").getFile());
+
+        Map<String, Object> streamsConfiguration = new HashMap<>();
+
+        String appId = UUID.randomUUID().toString();
+        streamsConfiguration.put(APPLICATION_ID_CONFIG, appId);
+        streamsConfiguration.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, CLUSTER.bootstrapServers());
+        streamsConfiguration.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        streamsConfiguration.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, JsonSerde.class.getName());
+        streamsConfiguration.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        streamsConfiguration.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 1);
+
+        Config configuration = new Config(streamsConfiguration);
+        configuration.put(ConfigProperties.BOOTSTRAPPER_CLASSNAME, "io.wizzie.bootstrapper.bootstrappers.impl.KafkaBootstrapper");
+        configuration.put(BOOTSTRAP_TOPICS_CONFIG, Arrays.asList(BOOTSTRAP_TOPIC));
+
+        String jsonConfig = getFileContent(file);
+
+        KeyValue<String, String> jsonConfigKv = new KeyValue<>(appId, jsonConfig);
+
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+        IntegrationTestUtils.produceKeyValuesSynchronously(BOOTSTRAP_TOPIC, Collections.singletonList(jsonConfigKv), producerConfig, MOCK_TIME);
+
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
+        List<KeyValue<String, String>> receivedMessagesFromConfig = IntegrationTestUtils.waitUntilMinValuesRecordsReceived(consumerConfig, BOOTSTRAP_TOPIC, 1);
+
+        assertEquals(Collections.singletonList(jsonConfig), receivedMessagesFromConfig);
+
+        Builder builder = new Builder(configuration);
+
+
+        Map<String, Object> b1 = new HashMap<>();
+        b1.put("C", 6000L);
+
+        Map<String, Object> a1 = new HashMap<>();
+        a1.put("B", b1);
+
+        Map<String, Object> message1 = new HashMap<>();
+        message1.put("A", a1);
+
+        message1.put("timestamp", 1122334455L);
+
+        KeyValue<String, Map<String, Object>> kvStream1 = new KeyValue<>("KEY_A", message1);
+
+        Map<String, Object> b2 = new HashMap<>();
+        b2.put("C", 9000L);
+
+        Map<String, Object> a2 = new HashMap<>();
+        a2.put("B", b2);
+
+        Map<String, Object> message2 = new HashMap<>();
+        message2.put("A", a2);
+
+        message2.put("timestamp", 1122334655L);
+
+        KeyValue<String, Map<String, Object>> kvStream2 = new KeyValue<>("KEY_A", message2);
+
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+
+        IntegrationTestUtils.produceKeyValuesSynchronously(INPUT_TOPIC, Arrays.asList(kvStream1, kvStream2), producerConfig, MOCK_TIME);
+
+        Map<String, Object> expectedData = new HashMap<>();
+        expectedData.put("X", 3000);
+        expectedData.put("timestamp", 1122334655);
+        expectedData.put("last_timestamp", 1122334455);
+
+        KeyValue<String, Map<String, Object>> expectedDataKv = new KeyValue<>("KEY_A", expectedData);
+
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+
+        List<KeyValue<String, Map>> receivedMessagesFromOutput = IntegrationTestUtils.waitUntilMinKeyValueRecordsReceived(consumerConfig, OUTPUT_TOPIC1, 1);
+
+        assertEquals(Collections.singletonList(expectedDataKv), receivedMessagesFromOutput);
+
+        //Send null to stop processing
+        jsonConfigKv = new KeyValue<>(appId, null);
+
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+
+        IntegrationTestUtils.produceKeyValuesSynchronously(BOOTSTRAP_TOPIC, Collections.singletonList(jsonConfigKv), producerConfig, MOCK_TIME);
+
+        boolean close = false;
+        //Wait for close
+        for (int i = 0; i < 10; i++) {
+            if (builder.streams == null) {
+                close = true;
+                break;
+            } else {
+                Thread.sleep(1000);
+            }
+        }
+
+        if (!close) {
+            throw new RuntimeException("Should close.");
+        }
+
+        jsonConfigKv = new KeyValue<>(appId, jsonConfig);
+        IntegrationTestUtils.produceKeyValuesSynchronously(BOOTSTRAP_TOPIC, Collections.singletonList(jsonConfigKv), producerConfig, MOCK_TIME);
+
+        producerConfig.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        IntegrationTestUtils.produceKeyValuesSynchronously(INPUT_TOPIC, Arrays.asList(kvStream1, kvStream2), producerConfig, MOCK_TIME);
+
+        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        receivedMessagesFromOutput = IntegrationTestUtils.waitUntilMinKeyValueRecordsReceived(consumerConfig, OUTPUT_TOPIC1, 2);
+
+        assertEquals(expectedDataKv, receivedMessagesFromOutput.get(1));
 
     }
 
